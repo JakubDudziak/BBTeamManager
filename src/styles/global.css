@@ -1,0 +1,24 @@
+@import "tailwindcss";
+
+@theme {
+    --primary-color: #2463eb;
+    --secondary-color: #dbe9fe;
+    /*light blue*/
+    --light-gray: #f9fafb;
+    --middle-gray: #ebedf0;
+    --hard-gray: #acb2bc;
+}
+
+/* @layer components {
+    .btn {
+        @apply flex items-center justify-between w-9/10 h-1/10 px-4 py-6 mx-4 my-2 border-2 border-solid border-(--hard-gray) rounded-xl box-border first:mt-4 &:focus {
+            text-(--primary-color) bg-(--secondary-color) border-(--primary-color)
+        }
+    }
+} */
+
+@layer components {
+    .btn {
+        @apply flex items-center justify-between w-[90%] h-[10%] px-4 py-6 mx-4 my-2 border-2 border-solid border-[var(--hard-gray)] rounded-xl box-border first:mt-4 focus:text-[var(--primary-color)] focus:bg-[var(--secondary-color)] focus:border-[var(--primary-color)];
+    }
+}
