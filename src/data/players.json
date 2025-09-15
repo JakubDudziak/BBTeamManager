@@ -10,7 +10,7 @@
     "age": 28,
     "createdAt": "2025-09-10T12:00:00+02:00",
     "updatedAt": "2025-09-10T12:00:00+02:00",
-    "photoURL": "[https://example.com/photos/jan\_kowalski.jpg](https://example.com/photos/jan_kowalski.jpg)"
+    "photoURL": "https://example.com/photos/jan_kowalski.jpg"
   },
   {
     "id": 2,
@@ -23,7 +23,7 @@
     "age": 26,
     "createdAt": "2025-09-10T12:00:00+02:00",
     "updatedAt": "2025-09-10T12:00:00+02:00",
-    "photoURL": "[https://example.com/photos/patryk\_lech.jpg](https://example.com/photos/patryk_lech.jpg)"
+    "photoURL": "https://example.com/photos/patryk_lech.jpg"
   },
   {
     "id": 3,
@@ -36,7 +36,7 @@
     "age": 30,
     "createdAt": "2025-09-10T12:00:00+02:00",
     "updatedAt": "2025-09-10T12:00:00+02:00",
-    "photoURL": "[https://example.com/photos/grzegorz\_murkowski.jpg](https://example.com/photos/grzegorz_murkowski.jpg)"
+    "photoURL": "https://example.com/photos/grzegorz/_murkowski.jpg"
   },
   {
     "id": 4,
@@ -49,7 +49,7 @@
     "age": 25,
     "createdAt": "2025-09-10T12:00:00+02:00",
     "updatedAt": "2025-09-10T12:00:00+02:00",
-    "photoURL": "[https://example.com/photos/piotr\_nowak.jpg](https://example.com/photos/piotr_nowak.jpg)"
+    "photoURL": "https://example.com/photos/piotr_nowak.jpg"
   },
   {
     "id": 5,
@@ -62,7 +62,7 @@
     "age": 24,
     "createdAt": "2025-09-10T12:00:00+02:00",
     "updatedAt": "2025-09-10T12:00:00+02:00",
-    "photoURL": "[https://example.com/photos/adam\_wisniewski.jpg](https://example.com/photos/adam_wisniewski.jpg)"
+    "photoURL": "https://example.com/photos/adam_wisniewski.jpg"
   },
   {
     "id": 6,
@@ -75,7 +75,7 @@
     "age": 31,
     "createdAt": "2025-09-10T12:00:00+02:00",
     "updatedAt": "2025-09-10T12:00:00+02:00",
-    "photoURL": "[https://example.com/photos/krzysztof\_zielinski.jpg](https://example.com/photos/krzysztof_zielinski.jpg)"
+    "photoURL": "https://example.com/photos/krzysztof/_zielinski.jpg"
   },
   {
     "id": 7,
@@ -88,7 +88,7 @@
     "age": 23,
     "createdAt": "2025-09-10T12:00:00+02:00",
     "updatedAt": "2025-09-10T12:00:00+02:00",
-    "photoURL": "[https://example.com/photos/marcin\_kaminski.jpg](https://example.com/photos/marcin_kaminski.jpg)"
+    "photoURL": "https://example.com/photos/marcin/_kaminski.jpg"
   },
   {
     "id": 8,
@@ -101,7 +101,7 @@
     "age": 29,
     "createdAt": "2025-09-10T12:00:00+02:00",
     "updatedAt": "2025-09-10T12:00:00+02:00",
-    "photoURL": "[https://example.com/photos/lukasz\_wojcik.jpg](https://example.com/photos/lukasz_wojcik.jpg)"
+    "photoURL": "https://example.com/photos/lukasz_wojcik.jpg"
   },
   {
     "id": 9,
@@ -114,7 +114,7 @@
     "age": 32,
     "createdAt": "2025-09-10T12:00:00+02:00",
     "updatedAt": "2025-09-10T12:00:00+02:00",
-    "photoURL": "[https://example.com/photos/tomasz\_kaczmarek.jpg](https://example.com/photos/tomasz_kaczmarek.jpg)"
+    "photoURL": "https://example.com/photos/tomasz/_kaczmarek.jpg"
   },
   {
     "id": 10,
@@ -127,7 +127,7 @@
     "age": 27,
     "createdAt": "2025-09-10T12:00:00+02:00",
     "updatedAt": "2025-09-10T12:00:00+02:00",
-    "photoURL": "[https://example.com/photos/pawel\_jablonski.jpg](https://example.com/photos/pawel_jablonski.jpg)"
+    "photoURL": "https://example.com/photos/pawel_jablonski.jpg"
   },
   {
     "id": 11,
@@ -140,7 +140,7 @@
     "age": 28,
     "createdAt": "2025-09-10T12:00:00+02:00",
     "updatedAt": "2025-09-10T12:00:00+02:00",
-    "photoURL": "[https://example.com/photos/mateusz\_piotrowski.jpg](https://example.com/photos/mateusz_piotrowski.jpg)"
+    "photoURL": "https://example.com/photos/mateusz_piotrowski.jpg"
   },
   {
     "id": 12,
@@ -153,7 +153,7 @@
     "age": 22,
     "createdAt": "2025-09-10T12:00:00+02:00",
     "updatedAt": "2025-09-10T12:00:00+02:00",
-    "photoURL": "[https://example.com/photos/jakub\_dabrowski.jpg](https://example.com/photos/jakub_dabrowski.jpg)"
+    "photoURL": "https://example.com/photos/jakub_dabrowski.jpg"
   },
   {
     "id": 13,
@@ -166,7 +166,7 @@
     "age": 30,
     "createdAt": "2025-09-10T12:00:00+02:00",
     "updatedAt": "2025-09-10T12:00:00+02:00",
-    "photoURL": "[https://example.com/photos/michal\_krol.jpg](https://example.com/photos/michal_krol.jpg)"
+    "photoURL": "https://example.com/photos/michal_krol.jpg"
   },
   {
     "id": 14,
@@ -179,7 +179,7 @@
     "age": 31,
     "createdAt": "2025-09-10T12:00:00+02:00",
     "updatedAt": "2025-09-10T12:00:00+02:00",
-    "photoURL": "[https://example.com/photos/dawid\_pawlak.jpg](https://example.com/photos/dawid_pawlak.jpg)"
+    "photoURL": "https://example.com/photos/dawid_pawlak.jpg"
   },
   {
     "id": 15,
@@ -192,7 +192,7 @@
     "age": 24,
     "createdAt": "2025-09-10T12:00:00+02:00",
     "updatedAt": "2025-09-10T12:00:00+02:00",
-    "photoURL": "[https://example.com/photos/grzegorz\_szymanski.jpg](https://example.com/photos/grzegorz_szymanski.jpg)"
+    "photoURL": "https://example.com/photos/grzegorz_szymanski.jpg"
   },
   {
     "id": 16,
@@ -205,7 +205,7 @@
     "age": 29,
     "createdAt": "2025-09-10T12:00:00+02:00",
     "updatedAt": "2025-09-10T12:00:00+02:00",
-    "photoURL": "[https://example.com/photos/sebastian\_wozniak.jpg](https://example.com/photos/sebastian_wozniak.jpg)"
+    "photoURL": "https://example.com/photos/sebastian_wozniak.jpg"
   },
   {
     "id": 17,
@@ -218,6 +218,6 @@
     "age": 28,
     "createdAt": "2025-09-10T12:00:00+02:00",
     "updatedAt": "2025-09-10T12:00:00+02:00",
-    "photoURL": "[https://example.com/photos/maciej\_malinowski.jpg](https://example.com/photos/maciej_malinowski.jpg)"
+    "photoURL": "https://example.com/photos/maciej_malinowski.jpg"
   }
 ]
