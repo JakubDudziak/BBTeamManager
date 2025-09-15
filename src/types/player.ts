@@ -39,5 +39,5 @@ export interface PlayerFromValues {
 }
 
 export enum Position {
-    PG, SG, SF, PF, C
+    PG = "PG", SG = "SG", SF = "SF", PF = "PF", C = "C"
 }
