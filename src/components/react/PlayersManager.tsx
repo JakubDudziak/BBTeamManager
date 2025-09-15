@@ -13,15 +13,14 @@ export default function PlayersManager() {
 
     useEffect(() => {
         (async () => {
-            const data = await listPlayers()
-            setPlayers(data)
+            setPlayers(await listPlayers())
         })()
-    }, []) // In square bracket we place variable which state we would like to observe
+    }, []) // In square bracket place variables which state we would like to observe
 
     return (
-        <div>
+        <div className="flex">
             <PlayersToolbar />
-            <PlayersTable />
+            <PlayersTable players={players} />
             <PlayerFormModal />
             <PlayerDetails />
             <DeleteConfirmationDialog />
