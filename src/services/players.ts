@@ -42,13 +42,12 @@ export async function listPlayers(options?: ListPlayersOptions) {
     let wantedPlayers: Player[] = []
 
     if (!isStringEmpty(searchText)) {
-        const searchText = searchText.trim().toLowerCase()
 
         players.forEach(player => {
-            if (player.firstName.includes(searchText) ||
-                player.lastName.includes(searchText) ||
-                String(player.heightCm).includes(searchText) ||
-                String(player.weight).includes(searchText)
+            if (player.firstName.includes(searchText.trim().toLowerCase()) ||
+                player.lastName.includes(searchText.trim().toLowerCase()) ||
+                String(player.heightCm).includes(searchText.trim().toLowerCase()) ||
+                String(player.weight).includes(searchText.trim().toLowerCase())
             ) {
                 wantedPlayers.push(player)
             }
