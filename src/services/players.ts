@@ -34,7 +34,7 @@ function isPosition(position: string): position is Position {
 
 export async function listPlayers(options?: ListPlayersOptions) {
 
-    const searchText = options?.searchText || "" // optional
+    let searchText = options?.searchText || "" // optional
     const sortBy = options?.sortBy || "name"
     const sortDir = options?.sortDir || "asc"
 
@@ -43,13 +43,13 @@ export async function listPlayers(options?: ListPlayersOptions) {
     let wantedPlayers: Player[] = []
 
     if (!isStringEmpty(searchText)) {
-        const searchText = searchText.trim().toLowerCase()
+        searchText.trim().toLowerCase()
 
         players.forEach(player => {
-            if (player.firstName.includes(searchText) ||
-                player.lastName.includes(searchText) ||
-                String(player.heightCm).includes(searchText) ||
-                String(player.weightKg).includes(searchText)
+            if (player.firstName.trim().toLowerCase().includes(searchText) ||
+                player.lastName.trim().toLowerCase().includes(searchText) ||
+                String(player.heightCm).trim().toLowerCase().includes(searchText) ||
+                String(player.weightKg).trim().toLowerCase().includes(searchText)
             ) {
                 wantedPlayers.push(player)
             }
@@ -57,10 +57,11 @@ export async function listPlayers(options?: ListPlayersOptions) {
         });
 
         return wantedPlayers
+    }  else {
+        return players
     }
 
     // TODO: sorting by col and direction of the data (ASC, DESC)
-
 }
 
 export async function getPlayer(id: number) {

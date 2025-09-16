@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, {useEffect, useState} from "react";
 import PlayersToolbar from "./PlayersToolbar";
 import PlayersTable from "./PlayersTable";
 import PlayerFormModal from "./PlayerFormModal";
 import PlayerDetails from "./PlayerDetails";
 import DeleteConfirmationDialog from "./DeleteConfirmDialog";
-import { listPlayers } from "../../services/players"
-import { type Player } from "../../types/player";
+import {listPlayers} from "../../services/players"
+import {type Player, Position} from "../../types/player";
 
 
 export default function PlayersManager() {
@@ -13,8 +13,9 @@ export default function PlayersManager() {
 
     useEffect(() => {
         (async () => {
-            setPlayers(await listPlayers())
-        })()
+            const data: Player[] = await listPlayers() || []
+            setPlayers(data)
+        })() // function initialization
     }, []) // In square bracket place variables which state we would like to observe
 
     return (
