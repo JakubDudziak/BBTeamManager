@@ -1,3 +1,4 @@
+import moment from "moment";
 import seedPlayers from "../data/players.json";
 import { type Player, type NewPlayer, Position } from "../types/player";
 
@@ -27,8 +28,8 @@ function isStringEmpty(value: string) {
     return value === undefined || value === null || value === "" || value.trim() === ""
 }
 
-function isPosition(position: string): position is Position{
-    return ["PG","SG","SF","PF","C"].includes(position as Position)
+function isPosition(position: string): position is Position {
+    return ["PG", "SG", "SF", "PF", "C"].includes(position as Position)
 }
 
 export async function listPlayers(options?: ListPlayersOptions) {
@@ -42,27 +43,31 @@ export async function listPlayers(options?: ListPlayersOptions) {
     let wantedPlayers: Player[] = []
 
     if (!isStringEmpty(searchText)) {
+        const searchText = searchText.trim().toLowerCase()
 
         players.forEach(player => {
-            if (player.firstName.includes(searchText.trim().toLowerCase()) ||
-                player.lastName.includes(searchText.trim().toLowerCase()) ||
-                String(player.heightCm).includes(searchText.trim().toLowerCase()) ||
-                String(player.weight).includes(searchText.trim().toLowerCase())
+            if (player.firstName.includes(searchText) ||
+                player.lastName.includes(searchText) ||
+                String(player.heightCm).includes(searchText) ||
+                String(player.weightKg).includes(searchText)
             ) {
                 wantedPlayers.push(player)
             }
 
         });
 
+        return wantedPlayers
     }
-    return wantedPlayers
+
+    // TODO: sorting by col and direction of the data (ASC, DESC)
+
 }
 
 export async function getPlayer(id: number) {
     const players = readAll()
 
     const player = players.find(player => player.id === id)
-    if(!player){
+    if (!player) {
         const error = new Error("Player not found")
         error.name = "NotFound"
         throw error
@@ -74,44 +79,53 @@ export async function getPlayer(id: number) {
 export async function createPlayer(newPlayer: NewPlayer) {
     const players = readAll()
 
-    if(isStringEmpty(newPlayer.firstName) || newPlayer.firstName.trim().length < 2) {
+    if (isStringEmpty(newPlayer.firstName) || newPlayer.firstName.trim().length < 2) {
         const error = new Error("Incorrect first name, try once again")
         error.name = "IncorrectFirstName"
     }
-    if(isStringEmpty(newPlayer.lastName) || newPlayer.lastName.trim().length < 2) {
+    if (isStringEmpty(newPlayer.lastName) || newPlayer.lastName.trim().length < 2) {
         const error = new Error("Incorrect last name, try once again")
         error.name = "IncorrectLastName"
     }
-    if(!isPosition(newPlayer.position.toUpperCase())) {
+    if (!isPosition(newPlayer.position.toUpperCase())) {
         const error = new Error("Provided position doesn't exist")
         error.name = "IncorrectPosition"
     }
-    if(newPlayer.number < 0 || newPlayer.number > 99 || players.find(player => player.number === newPlayer.number)) {
+    if (newPlayer.number < 0 || newPlayer.number > 99 || players.find(player => player.number === newPlayer.number)) {
         const error = new Error("Incorrect player number, it could be taken")
         error.name = "IncorrectPlayerNumber"
     }
-    if(newPlayer.heightCm < 150 || newPlayer.heightCm > 240) {
+    if (newPlayer.heightCm < 150 || newPlayer.heightCm > 240) {
         const error = new Error("Incorrect height")
         error.name = "IncorrectPlayerHeight"
     }
-    if(newPlayer.weight < 50 || newPlayer.weight > 180) {
+    if (newPlayer.weightKg < 50 || newPlayer.weightKg > 180) {
         const error = new Error("Incorrect weight")
         error.name = "IncorrectPlayerWeight"
     }
-    if(newPlayer.age < 14 || newPlayer.age > 67) {
+    if (newPlayer.age < 14 || newPlayer.age > 67) {
         const error = new Error("Incorrect age")
         error.name = "IncorrectPlayerAge"
     }
 
-    let newId
-
-    if (players.length === 0) {
-        newId = 0
-    } else {
-        newId = players.at(-1)?.id + 1
+    const newId = (players.at(-1)?.id ?? 0) + 1
+    const createdAt = moment().format('MMMM DD YYYY, h:mm:ss a')
+    const player: Player = {
+        id: newId,
+        firstName: newPlayer.firstName,
+        lastName: newPlayer.lastName,
+        number: newPlayer.number,
+        position: newPlayer.position,
+        heightCm: newPlayer.heightCm,
+        weightKg: newPlayer.weightKg,
+        age: newPlayer.age,
+        createdAt: createdAt,
+        updatedAt: createdAt,
+        photoURL: newPlayer.photoURL
     }
 
-    writeAll(players.push())
+    players.push(player)
+    writeAll(players)
 }
 
 export async function updatePlayer() {
@@ -119,9 +133,9 @@ export async function updatePlayer() {
 }
 
 export async function deletePlayer(id: number) {
-    const players =  readAll()
+    const players = readAll()
     const player = players.find(player => player.id === id)
-    if(!player){
+    if (!player) {
         const error = new Error("Player not found")
         error.name = "NotFound"
         throw error

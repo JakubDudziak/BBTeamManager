@@ -5,7 +5,7 @@ export interface Player {
     number: number;
     position: Position;
     heightCm: number;
-    weight: number;
+    weightKg: number;
     age: number;
     createdAt: string;
     updatedAt: string;
@@ -18,7 +18,7 @@ export interface NewPlayer {
     number: number;
     position: Position;
     heightCm: number;
-    weight: number;
+    weightKg: number;
     age: number;
     createdAt: string;
     photoURL: string;
@@ -31,7 +31,7 @@ export interface PlayerFromValues {
     number: string;
     position: Position;
     heightCm: string;
-    weight: string;
+    weightKg: string;
     age: string;
     createdAt: string;
     updatedAt: string;
