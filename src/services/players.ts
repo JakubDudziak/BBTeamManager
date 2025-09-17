@@ -6,7 +6,7 @@ const STORAGE_KEY = "bbtm.players.v1";
 
 type ListPlayersOptions = {
     searchText?: string, //
-    sortBy?: "name" | "position" | "height" | "weight",
+    sortBy?: "name" | "position" | "heightCm" | "weightKg",
     sortDir?: "asc" | "desc"
 }
 
