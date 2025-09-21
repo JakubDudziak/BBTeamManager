@@ -16,10 +16,9 @@ export default function PlayersTable({players}: {players: Player[]}) {
                 </thead>
                 <tbody className={""}>
                     {
-
                         players.map(player => {
                             return (
-                                <tr className={"group bg-white even:bg-(--light-gray) border-b-1 border-(--middle-gray)"}>
+                                <tr key={player.id} className={"group bg-white even:bg-(--light-gray) border-b-1 border-(--middle-gray)"}>
                                     <td className={"w-1/3 p-6 align-middle text-left select-none"} >{player.firstName} {player.lastName}</td>
                                     <td className={"p-6 align-middle text-left select-none"}>{player.position}</td>
                                     <td className={"p-6 align-middle text-left select-none"}>{player.heightCm} cm</td>

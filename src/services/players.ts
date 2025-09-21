@@ -8,6 +8,13 @@ type ListPlayersOptions = {
     searchText?: string, //
     sortBy?: "name" | "position" | "heightCm" | "weightKg",
     sortDir?: "asc" | "desc"
+    currentPage: number
+    playersPerPage: number
+}
+
+type ListPlayersResult = {
+    playersList: Player[]
+    playersCount: number
 }
 
 function readAll() {
@@ -37,15 +44,20 @@ export async function listPlayers(options?: ListPlayersOptions) {
     let searchText = options?.searchText || "" // optional
     const sortBy = options?.sortBy || "name"
     const sortDir = options?.sortDir || "asc"
-
+    const currentPage = options?.currentPage || 1
+    const playersPerPage = options?.playersPerPage || 6
+    const lastPlayerIndex = currentPage * playersPerPage
+    const firstPlayerIndex = lastPlayerIndex - playersPerPage
     const players = readAll()
+    const currentPlayers = players.slice(firstPlayerIndex, lastPlayerIndex)
+    const playersCount = players.length
 
     let wantedPlayers: Player[] = []
 
     if (!isStringEmpty(searchText)) {
         searchText.trim().toLowerCase()
 
-        players.forEach(player => {
+        currentPlayers.forEach(player => {
             if (player.firstName.trim().toLowerCase().includes(searchText) ||
                 player.lastName.trim().toLowerCase().includes(searchText) ||
                 String(player.heightCm).trim().toLowerCase().includes(searchText) ||
@@ -56,9 +68,9 @@ export async function listPlayers(options?: ListPlayersOptions) {
 
         });
 
-        return wantedPlayers
+        return {playersList: wantedPlayers, playersCount}
     }  else {
-        return players
+        return {playersList: currentPlayers, playersCount}
     }
 
     // TODO: sorting by col and direction of the data (ASC, DESC)
