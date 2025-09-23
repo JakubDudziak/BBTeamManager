@@ -4,10 +4,10 @@ import PlayersTable from "./PlayersTable";
 import PlayerFormModal from "./PlayerFormModal";
 import PlayerDetails from "./PlayerDetails";
 import DeleteConfirmationDialog from "./DeleteConfirmDialog";
-import {listPlayers} from "../../services/players"
 import {type Player, Position} from "../../types/player";
 import PlayersHeader from "./PlayersHeader.tsx";
 import Pagination from "./Pagination.tsx";
+import {listPlayers} from "../../services/player";
 
 
 export default function PlayersManager() {
@@ -29,7 +29,11 @@ export default function PlayersManager() {
             <PlayersHeader playersCount={playersCount}/>
             <PlayersToolbar />
             <PlayersTable players={players} />
-            <Pagination playersCount={playersCount} playersPerPage={playersPerPage} setCurrentPage={setCurrentPage}/>
+            <Pagination
+                playersCount={playersCount}
+                playersPerPage={playersPerPage}
+                currentPage={currentPage}
+                setCurrentPage={setCurrentPage}/>
             <PlayerFormModal />
             <PlayerDetails />
             <DeleteConfirmationDialog />

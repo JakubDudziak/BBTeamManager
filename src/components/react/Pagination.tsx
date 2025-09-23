@@ -1,22 +1,50 @@
 import React from "react";
 
-export default function Pagination({playersCount, playersPerPage, setCurrentPage}: {playersCount: number, playersPerPage: number, setCurrentPage: (page: number) => void}) {
-    let pages = []
+type PaginationProps = {
+    playersCount: number;
+    playersPerPage: number;
+    currentPage: number;
+    setCurrentPage: (page: number) => void;
+};
 
-    for (let i = 1; i <= Math.ceil(playersCount / playersPerPage) ; i++) {
-        pages.push(i)
-    }
+export default function Pagination({playersCount, playersPerPage,currentPage ,setCurrentPage}: PaginationProps) {
+    const totalPages = Math.max(1, Math.ceil(playersCount / playersPerPage));
+    const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
+
+    const prev = () => setCurrentPage(Math.max(1, currentPage - 1));
+    const next = () => setCurrentPage(Math.min(totalPages, currentPage + 1));
 
     return (
-        <div className="flex items-centet justify-center mb-6">
-        {/*<button type="button" className="size-10 m-1.5 cursor-pointer">&lt;</button>*/}
-        <div>
-            {pages.map((page, index) => {
-
-                return <button type="button" key={index} onClick={() => setCurrentPage(page) } className="size-10 m-1.5 cursor-pointer focus:bg-(--primary-color) focus:text-white rounded-xl">{page}</button>
-            })}
-        </div>
-        {/*<button type="button" className="size-10 m-1.5 cursor-pointer">&gt;</button>*/}
-        </div>
+        <nav className="flex items-centet justify-center mb-6">
+            <button
+                type="button"
+                onClick={prev}
+                disabled={currentPage === 1}
+                className={`size-10 m-1.5 rounded-xl
+                ${currentPage === 1 ? "opacity-40 cursor-not-allowed" : "hover:bg-(--middle-gray)"}`}>
+                &lt;
+            </button>
+            <div>
+                {pages.map((page, index) => (
+                    <button
+                        key={index}
+                        type="button"
+                        onClick={() => setCurrentPage(page)}
+                        className={`size-10 m-1.5 cursor-pointer 
+                        ${currentPage === page && "bg-(--primary-color) text-white rounded-xl"} 
+                        ${currentPage!== page && "hover:bg-(--secondary-color) rounded-xl"}`}>
+                        {page}
+                    </button>
+                ))}
+            </div>
+            <button
+                type="button"
+                onClick={next}
+                disabled={currentPage === totalPages}
+                className={`size-10 m-1.5 rounded-xl
+                ${currentPage === totalPages ? "opacity-40 cursor-not-allowed" : "hover:bg-(--middle-gray)"}`}>
+                &gt;
+            </button>
+        </nav>
     )
 }
