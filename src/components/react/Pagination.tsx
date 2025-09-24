@@ -7,7 +7,7 @@ type PaginationProps = {
     setCurrentPage: (page: number) => void;
 };
 
-export default function Pagination({playersCount, playersPerPage,currentPage ,setCurrentPage}: PaginationProps) {
+export default function Pagination({playersCount, playersPerPage, currentPage, setCurrentPage}: PaginationProps) {
     const totalPages = Math.max(1, Math.ceil(playersCount / playersPerPage));
     const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
 

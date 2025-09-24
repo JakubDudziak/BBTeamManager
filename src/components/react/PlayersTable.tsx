@@ -2,6 +2,7 @@ import React from "react";
 import type { Player } from "../../types/player";
 
 export default function PlayersTable({players}: {players: Player[]}) {
+
     return (
         <div className={"flex flex-1 flex-col"}>
             <table className={"order-1 m-6 border-collapse border border-(--middle-gray) bg-white"}>
@@ -14,7 +15,7 @@ export default function PlayersTable({players}: {players: Player[]}) {
                         <th className={"p-6 text-left select-none"}>ACTIONS</th>
                     </tr>
                 </thead>
-                <tbody className={""}>
+                <tbody>
                     {
                         players.map(player => {
                             return (

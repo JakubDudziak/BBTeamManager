@@ -3,10 +3,10 @@ import PlayersManager from "./react/PlayersManager";
 
 ---
 
-<div class="flex justify-center items-start bg-(--light-gray)">
+<div class="flex justify-center">
     <div
         class="flex flex-col w-full m-6 bg-white border-solid border-2 border-(--middle-gray) rounded-2xl"
     >
-        <PlayersManager client:load />
+        <PlayersManager client:only />
     </div>
 </div>
