@@ -1,4 +1,5 @@
 import React, {type ReactNode, useEffect} from "react";
+import {createPortal} from "react-dom";
 
 interface Props {
     open: boolean;
@@ -26,11 +27,11 @@ export default function Modal(props: Props) {
 
     if (!open) return null
 
-    return (
-        <div className="fixed flex justify-center items-center size-full ">
-            <dialog className="flex flex-col rounded-xl bg-white shadow-md shadow-blue-300">
+    return createPortal(
+        <div className="fixed inset-0 flex items-center">
+            <div className="flex flex-col size-1/6 rounded-xl bg-white shadow-md shadow-blue-300 absolute left-1/2">
 
-            </dialog>
-        </div>
+            </div>
+        </div>, document.body
     )
 }
