@@ -4,24 +4,57 @@ import PlayersTable from "./PlayersTable";
 import PlayerFormModal from "./PlayerFormModal";
 import PlayerDetails from "./PlayerDetails";
 import DeleteConfirmationDialog from "./DeleteConfirmDialog";
-import {listPlayers} from "../../services/players"
-import {type Player, Position} from "../../types/player";
+import {type Player} from "../../types/player";
+import PlayersHeader from "./PlayersHeader.tsx";
+import Pagination from "./Pagination.tsx";
+import {listPlayers} from "../../services/player";
+import {readAll} from "../../services/player/playerService.ts";
+import Modal from "./Modal/Modal.tsx";
+import RemovePlayerModal from "./Modal/RemovePlayerModal.tsx";
 
 
 export default function PlayersManager() {
-    const [players, setPlayers] = useState<Player[]>([])
+
+    // list of all players, if list has not any players it returns empty list
+    const [players, setPlayers] = useState<Player[]>(() => readAll())
+    const [searchedPlayers, setSearchedPlayers] = useState<Player[]>([])
+    const [currentPage, setCurrentPage] = useState(1)
+    const [playersPerPage, setPlayersPerPage] = useState(5)
+    const [playersCount, setPlayersCount] = useState(0)
+    const [query, setQuery] = useState("")
+    const [playerName, SetPlayerName] = useState("")
 
     useEffect(() => {
-        (async () => {
-            const data: Player[] = await listPlayers() || []
-            setPlayers(data)
-        })() // function initialization
-    }, []) // In square bracket place variables which state we would like to observe
+       setPlayersCount(players.length)
+    }, []);
+
+    useEffect(() => {
+        (() => {
+            const {paginatedPlayers, filteredPlayersLength} = listPlayers({players: players, query: query, currentPage, playersPerPage})
+            setSearchedPlayers(paginatedPlayers)
+            setPlayersCount(filteredPlayersLength)
+        })()
+    }, [query, currentPage]);
+
+    function onQueryChange(newQuery: string) {
+        setQuery(newQuery)
+        setCurrentPage(1)
+    }
 
     return (
-        <div className="flex">
-            <PlayersToolbar />
-            <PlayersTable players={players} />
+        <div className="flex flex-col">
+            <PlayersHeader playersCount={playersCount}/>
+            <PlayersToolbar
+                value={query}
+                onQueryChange={onQueryChange}
+            />
+            <PlayersTable players={searchedPlayers}/>
+            <Pagination
+                playersCount={playersCount}
+                playersPerPage={playersPerPage}
+                currentPage={currentPage}
+                setCurrentPage={setCurrentPage}/>
+            <RemovePlayerModal isOpen={true} playerName={playerName} />
             <PlayerFormModal />
             <PlayerDetails />
             <DeleteConfirmationDialog />

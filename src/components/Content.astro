@@ -1,24 +1,12 @@
 ---
 import PlayersManager from "./react/PlayersManager";
+
 ---
 
-<div class="flex justify-center items-start bg-(--light-gray)">
+<div class="flex justify-center">
     <div
         class="flex flex-col w-full m-6 bg-white border-solid border-2 border-(--middle-gray) rounded-2xl"
     >
-        <div class="flex items-center h-auto ml-6">
-            <img
-                src="/icons/people-icon.png"
-                alt="players heads"
-                class="mr-2"
-            />
-            <h1>Players</h1>
-            <div
-                class="flex justify-center items-center h-6 w-8 ml-4 text-(--primary-color) bg-(--secondary-color) rounded-2xl"
-            >
-                <p class="justify-center items-center text-3xl">6</p>
-            </div>
-        </div>
-        <PlayersManager client:load />
+        <PlayersManager client:only />
     </div>
 </div>
