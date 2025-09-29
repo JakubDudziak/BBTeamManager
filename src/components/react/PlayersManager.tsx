@@ -10,6 +10,7 @@ import Pagination from "./Pagination.tsx";
 import {listPlayers} from "../../services/player";
 import {readAll} from "../../services/player/playerService.ts";
 import Modal from "./Modal/Modal.tsx";
+import RemovePlayerModal from "./Modal/RemovePlayerModal.tsx";
 
 
 export default function PlayersManager() {
@@ -21,6 +22,7 @@ export default function PlayersManager() {
     const [playersPerPage, setPlayersPerPage] = useState(5)
     const [playersCount, setPlayersCount] = useState(0)
     const [query, setQuery] = useState("")
+    const [playerName, SetPlayerName] = useState("")
 
     useEffect(() => {
        setPlayersCount(players.length)
@@ -44,14 +46,15 @@ export default function PlayersManager() {
             <PlayersHeader playersCount={playersCount}/>
             <PlayersToolbar
                 value={query}
-                onQueryChange={onQueryChange}/>
+                onQueryChange={onQueryChange}
+            />
             <PlayersTable players={searchedPlayers}/>
             <Pagination
                 playersCount={playersCount}
                 playersPerPage={playersPerPage}
                 currentPage={currentPage}
                 setCurrentPage={setCurrentPage}/>
-            <Modal open={true}/>
+            <RemovePlayerModal isOpen={true} playerName={playerName} />
             <PlayerFormModal />
             <PlayerDetails />
             <DeleteConfirmationDialog />

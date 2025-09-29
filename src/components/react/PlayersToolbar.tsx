@@ -20,6 +20,7 @@ export default function PlayersToolbar({value, onQueryChange, debounceMs = 200}:
             isFirstRender.current = false
             return
         }
+
         const timeout = setTimeout(() => {
             if(inputValue !== value) onQueryChange(inputValue) //pass input value to the parent
         }, debounceMs)
