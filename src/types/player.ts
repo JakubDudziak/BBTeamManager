@@ -9,7 +9,7 @@ export interface Player {
     age: number;
     createdAt: string;
     updatedAt: string;
-    photoURL: string;
+    photoURL?: string;
 }
 
 export interface NewPlayer {
@@ -21,7 +21,7 @@ export interface NewPlayer {
     weightKg: number;
     age: number;
     createdAt: string;
-    photoURL: string;
+    photoURL?: string;
 }
 
 export interface PlayerFromValues {
@@ -35,7 +35,7 @@ export interface PlayerFromValues {
     age: string;
     createdAt: string;
     updatedAt: string;
-    photoURL: string;
+    photoURL?: string;
 }
 
 export enum Position {
