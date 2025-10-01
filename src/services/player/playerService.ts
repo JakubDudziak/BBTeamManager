@@ -3,7 +3,7 @@ import seedPlayers from "../../data/players.json";
 import { type Player, type NewPlayer, Position } from "../../types/player.ts";
 export
 
-const STORAGE_KEY = "bbtm.players.v1"
+    const STORAGE_KEY = "bbtm.players.v1"
 
 export function writeAll(players: Player[]) {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(players))

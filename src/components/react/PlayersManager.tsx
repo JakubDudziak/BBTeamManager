@@ -1,15 +1,14 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import PlayersToolbar from "./PlayersToolbar";
 import PlayersTable from "./PlayersTable";
 import PlayerFormModal from "./PlayerFormModal";
 import PlayerDetails from "./PlayerDetails";
 import DeleteConfirmationDialog from "./DeleteConfirmDialog";
-import {type Player} from "../../types/player";
+import { type Player } from "../../types/player";
 import PlayersHeader from "./PlayersHeader.tsx";
 import Pagination from "./Pagination.tsx";
-import {listPlayers} from "../../services/player";
-import {readAll} from "../../services/player/playerService.ts";
-import Modal from "./Modal/Modal.tsx";
+import { listPlayers } from "../../services/player";
+import { readAll } from "../../services/player/playerService.ts";
 import RemovePlayerModal from "./Modal/RemovePlayerModal.tsx";
 
 
@@ -22,15 +21,15 @@ export default function PlayersManager() {
     const [playersPerPage, setPlayersPerPage] = useState(5)
     const [playersCount, setPlayersCount] = useState(0)
     const [query, setQuery] = useState("")
-    const [playerName, SetPlayerName] = useState("")
+    const [playerName, SetPlayerName] = useState("XYZ")
 
     useEffect(() => {
-       setPlayersCount(players.length)
+        setPlayersCount(players.length)
     }, []);
 
     useEffect(() => {
         (() => {
-            const {paginatedPlayers, filteredPlayersLength} = listPlayers({players: players, query: query, currentPage, playersPerPage})
+            const { paginatedPlayers, filteredPlayersLength } = listPlayers({ players: players, query: query, currentPage, playersPerPage })
             setSearchedPlayers(paginatedPlayers)
             setPlayersCount(filteredPlayersLength)
         })()
@@ -43,18 +42,18 @@ export default function PlayersManager() {
 
     return (
         <div className="flex flex-col">
-            <PlayersHeader playersCount={playersCount}/>
+            <PlayersHeader playersCount={playersCount} />
             <PlayersToolbar
                 value={query}
                 onQueryChange={onQueryChange}
             />
-            <PlayersTable players={searchedPlayers}/>
+            <PlayersTable players={searchedPlayers} />
             <Pagination
                 playersCount={playersCount}
                 playersPerPage={playersPerPage}
                 currentPage={currentPage}
-                setCurrentPage={setCurrentPage}/>
-            <RemovePlayerModal isOpen={true} playerName={playerName} />
+                setCurrentPage={setCurrentPage} />
+            <RemovePlayerModal isOpen={false} playerName={playerName} />
             <PlayerFormModal />
             <PlayerDetails />
             <DeleteConfirmationDialog />
