@@ -4,8 +4,6 @@ import type { Player } from "../../types/player";
 export default function PlayersTable({players}: {players: Player[]}) {
 
     return (
-
-
         <div className={"flex flex-1 flex-col"}>
             <table className={"order-1 m-6 border-collapse border border-(--middle-gray) bg-white"}>
                 <thead className={"tracking-widest text-(--hard-gray) bg-(--light-gray)"}>
