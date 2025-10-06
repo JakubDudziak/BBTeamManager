@@ -1,12 +1,14 @@
 ---
-import PlayersManager from "./react/PlayersManager";
+import PlayersManager from "./react/PlayersManager"
 
+const res = await fetch("http://localhost:4321/api/players")
+const { items } = await res.json()
 ---
 
 <div class="flex justify-center">
     <div
         class="flex flex-col w-full m-6 bg-white border-solid border-2 border-(--middle-gray) rounded-2xl"
     >
-        <PlayersManager client:only />
+        <PlayersManager client:load initialItems={items}/>
     </div>
 </div>

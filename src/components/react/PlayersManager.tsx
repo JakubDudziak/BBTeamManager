@@ -12,12 +12,12 @@ import {readAll} from "../../services/player/playerService.ts";
 import Modal from "./Modal/Modal.tsx";
 import RemovePlayerModal from "./Modal/RemovePlayerModal.tsx";
 
+type Props = {initalItems: Player[]}
 
-export default function PlayersManager() {
+export default function PlayersManager({initalItems}: Props) {
 
     // list of all players, if list has not any players it returns empty list
-    const [players, setPlayers] = useState<Player[]>(() => readAll())
-    const [searchedPlayers, setSearchedPlayers] = useState<Player[]>([])
+    const [players, setPlayers] = useState<Player[]>(initalItems)
     const [currentPage, setCurrentPage] = useState(1)
     const [playersPerPage, setPlayersPerPage] = useState(5)
     const [playersCount, setPlayersCount] = useState(0)
@@ -25,16 +25,11 @@ export default function PlayersManager() {
     const [playerName, SetPlayerName] = useState("")
 
     useEffect(() => {
-       setPlayersCount(players.length)
+        fetch("/api/players")
+            .then(r => r.json())
+            .then(setPlayers)
+            .catch(console.error)
     }, []);
-
-    useEffect(() => {
-        (() => {
-            const {paginatedPlayers, filteredPlayersLength} = listPlayers({players: players, query: query, currentPage, playersPerPage})
-            setSearchedPlayers(paginatedPlayers)
-            setPlayersCount(filteredPlayersLength)
-        })()
-    }, [query, currentPage]);
 
     function onQueryChange(newQuery: string) {
         setQuery(newQuery)
@@ -48,13 +43,13 @@ export default function PlayersManager() {
                 value={query}
                 onQueryChange={onQueryChange}
             />
-            <PlayersTable players={searchedPlayers}/>
+            <PlayersTable players={players}/>
             <Pagination
                 playersCount={playersCount}
                 playersPerPage={playersPerPage}
                 currentPage={currentPage}
                 setCurrentPage={setCurrentPage}/>
-            <RemovePlayerModal isOpen={true} playerName={playerName} />
+            <RemovePlayerModal isOpen={false} playerName={playerName} />
             <PlayerFormModal />
             <PlayerDetails />
             <DeleteConfirmationDialog />

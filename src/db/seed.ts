@@ -1,8 +1,8 @@
+import "dotenv/config"
 import { players } from "./schema/playerSchema";
 import { Position } from "../types/player";
 import path from "path"
 import fs from "fs"
-import "dotenv/config"
 import { db } from "./client"
 import { eq } from "drizzle-orm"
 
@@ -22,9 +22,10 @@ type SeedData = {
     }>
 }
 
-const seedPath = path.resolve(process.cwd(), "data", "players.json")
+const seedPath = path.resolve(process.cwd(),"src", "data", "players.json")
+console.log(seedPath)
 const raw = fs.readFileSync(seedPath, "utf-8")
-const data = JSON.parse(raw)
+const data: SeedData = JSON.parse(raw)
 
 db.transaction(tx => {
     for (const p of data.players) {
