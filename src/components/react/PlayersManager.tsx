@@ -1,35 +1,39 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import PlayersToolbar from "./PlayersToolbar";
 import PlayersTable from "./PlayersTable";
 import PlayerFormModal from "./PlayerFormModal";
 import PlayerDetails from "./PlayerDetails";
 import DeleteConfirmationDialog from "./DeleteConfirmDialog";
-import {type Player} from "../../types/player";
+import { type Player } from "../../types/player";
 import PlayersHeader from "./PlayersHeader.tsx";
 import Pagination from "./Pagination.tsx";
-import {listPlayers} from "../../services/player";
-import {readAll} from "../../services/player/playerService.ts";
-import Modal from "./Modal/Modal.tsx";
 import RemovePlayerModal from "./Modal/RemovePlayerModal.tsx";
 
-type Props = {initalItems: Player[]}
+type Props = {
+    initialItems: {
+        items: Player[];
+        total: number;
+    }
+}
 
-export default function PlayersManager({initalItems}: Props) {
-
-    // list of all players, if list has not any players it returns empty list
-    const [players, setPlayers] = useState<Player[]>(initalItems)
+export default function PlayersManager({ initialItems }: Props) {
+    const { items, total } = initialItems;
+    const [players, setPlayers] = useState<Player[]>(items)
     const [currentPage, setCurrentPage] = useState(1)
     const [playersPerPage, setPlayersPerPage] = useState(5)
-    const [playersCount, setPlayersCount] = useState(0)
+    const [playersCount, setPlayersCount] = useState(total)
     const [query, setQuery] = useState("")
     const [playerName, SetPlayerName] = useState("")
 
+    // useEffect(() => {
+    //     setPlayersCount()
+    // }, [])
+    //wrtie useEffect hook that serve pagination and filtering
     useEffect(() => {
-        fetch("/api/players")
-            .then(r => r.json())
-            .then(setPlayers)
-            .catch(console.error)
-    }, []);
+        const params = new URLSearchParams()
+
+        fetch(`/api/players?${params}`)
+    }, [currentPage, query])
 
     function onQueryChange(newQuery: string) {
         setQuery(newQuery)
@@ -38,17 +42,17 @@ export default function PlayersManager({initalItems}: Props) {
 
     return (
         <div className="flex flex-col">
-            <PlayersHeader playersCount={playersCount}/>
+            <PlayersHeader playersCount={playersCount} />
             <PlayersToolbar
                 value={query}
                 onQueryChange={onQueryChange}
             />
-            <PlayersTable players={players}/>
+            <PlayersTable players={players} />
             <Pagination
                 playersCount={playersCount}
                 playersPerPage={playersPerPage}
                 currentPage={currentPage}
-                setCurrentPage={setCurrentPage}/>
+                setCurrentPage={setCurrentPage} />
             <RemovePlayerModal isOpen={false} playerName={playerName} />
             <PlayerFormModal />
             <PlayerDetails />

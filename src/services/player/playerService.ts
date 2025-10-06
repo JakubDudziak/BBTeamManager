@@ -1,28 +1,19 @@
-import seedPlayers from "../../data/players.json";
-import { type Player, type NewPlayer, Position } from "../../types/player.ts";
-import { listAllPlayers } from "../../repositories/players.repo.ts";
+import { z } from "zod";
+import { listPlayers } from "../../repositories/players.repo";
 
-const STORAGE_KEY = "bbtm.players.v1"
+const querySchema = z.object({
+    q: z.string().trim().max(30).optional(),
+    limit: z.coerce.number().int().min(1).max(100).default(5),
+    offset: z.coerce.number().int().min(0).default(0),
+});
 
-
-
-export function writeAll(players: Player[]) {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(players))
-}
-
-export function readAll(): Player[] {
-    if (typeof window === "undefined") return [];
-    if (!localStorage.getItem(STORAGE_KEY)) {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(seedPlayers))
+export function listPlayersService(input: unknown) {
+    const parsed = querySchema.safeParse(input);
+    if (!parsed.success) {
+        const msg = parsed.error.errors.map(e => e.message).join("; ");
+        throw new Error(`Niepoprawne parametry: ${msg}`);
     }
 
-    return JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]")
-}
-
-export function isStringEmpty(value: string | null): boolean {
-    return !value || value.trim() === "";
-}
-
-export async function getAllPlayers() {
-    return listAllPlayers()
+    const { q, limit, offset } = parsed.data;
+    return listPlayers({ q, limit, offset });
 }
