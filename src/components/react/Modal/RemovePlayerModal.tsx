@@ -6,12 +6,12 @@ type Props = {
     playerName: string
 }
 
-export default function RemovePlayerModal({isOpen, playerName}: Props) {
-    return(
+export default function RemovePlayerModal({ isOpen, playerName }: Props) {
+    return (
         <Modal isOpen={isOpen} content={(
             <>
                 <h2>Remove Player</h2>
-                <p>Are you sure that you want do remove: Player from the player list?</p>
+                <p>Are you sure that you want do remove: {playerName} from the player list?</p>
             </>
         )} />
     )
