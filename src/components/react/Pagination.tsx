@@ -1,18 +1,17 @@
 import React from "react";
 
 type PaginationProps = {
+    currentPage: number;
     playersCount: number;
     playersPerPage: number;
-    currentPage: number;
-    setCurrentPage: (page: number) => void;
+    onPageChange: (currentPage: number) => void;
 };
 
-export default function Pagination({playersCount, playersPerPage, currentPage, setCurrentPage}: PaginationProps) {
+export default function Pagination({ currentPage, playersCount, playersPerPage, onPageChange }: PaginationProps) {
     const totalPages = Math.max(1, Math.ceil(playersCount / playersPerPage));
     const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
-
-    const prev = () => setCurrentPage(Math.max(1, currentPage - 1));
-    const next = () => setCurrentPage(Math.min(totalPages, currentPage + 1));
+    const prev = () => onPageChange(Math.max(1, currentPage - 1));
+    const next = () => onPageChange(Math.min(totalPages, currentPage + 1));
 
     return (
         <nav className="flex items-centet justify-center mb-6">
@@ -25,15 +24,15 @@ export default function Pagination({playersCount, playersPerPage, currentPage, s
                 &lt;
             </button>
             <div>
-                {pages.map((page, index) => (
+                {pages.map((pageNumber, index) => (
                     <button
                         key={index}
                         type="button"
-                        onClick={() => setCurrentPage(page)}
+                        onClick={() => onPageChange(currentPage)}
                         className={`size-10 m-1.5 cursor-pointer 
-                        ${currentPage === page && "bg-(--primary-color) text-white rounded-xl"} 
-                        ${currentPage!== page && "hover:bg-(--secondary-color) rounded-xl"}`}>
-                        {page}
+                        ${pageNumber === currentPage && "bg-(--primary-color) text-white rounded-xl"} 
+                        ${pageNumber !== currentPage && "hover:bg-(--secondary-color) rounded-xl"}`}>
+                        {pageNumber}
                     </button>
                 ))}
             </div>

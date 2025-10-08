@@ -1,62 +1,81 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import PlayersToolbar from "./PlayersToolbar";
 import PlayersTable from "./PlayersTable";
 import PlayerFormModal from "./PlayerFormModal";
 import PlayerDetails from "./PlayerDetails";
-import DeleteConfirmationDialog from "./DeleteConfirmDialog";
 import { type Player } from "../../types/player";
 import PlayersHeader from "./PlayersHeader.tsx";
 import Pagination from "./Pagination.tsx";
-import { listPlayers } from "../../services/player";
-import { readAll } from "../../services/player/playerService.ts";
-import RemovePlayerModal from "./Modal/RemovePlayerModal.tsx";
+import { useQuery, keepPreviousData } from "@tanstack/react-query";
 
+type Props = {
+    initialParams: {
+        q: string;
+        page: number;
+        limit: number;
+    };
+    initialItems: {
+        items: Player[];
+        total: number;
+    };
+}
+type InitialData = Props["initialItems"];
 
-export default function PlayersManager() {
-
-    // list of all players, if list has not any players it returns empty list
-    const [players, setPlayers] = useState<Player[]>(() => readAll())
-    const [searchedPlayers, setSearchedPlayers] = useState<Player[]>([])
-    const [currentPage, setCurrentPage] = useState(1)
-    const [playersPerPage, setPlayersPerPage] = useState(5)
-    const [playersCount, setPlayersCount] = useState(0)
-    const [query, setQuery] = useState("")
-    const [playerName, SetPlayerName] = useState("XYZ")
+export default function PlayersManager({ initialParams, initialItems }: Props) {
+    const [q, setQ] = useState(initialParams.q)
+    const [page, setPage] = useState(initialParams.page)
+    const [limit, setLimit] = useState(initialParams.limit)
+    const [qDebounced, setQDebounced] = useState(q);
 
     useEffect(() => {
-        setPlayersCount(players.length)
-    }, []);
+        const t = setTimeout(() => {
+            setQDebounced(q)
+            setPage(1)
+        }
+            , 200);
+        return () => clearTimeout(t);
+    }, [q]);
 
-    useEffect(() => {
-        (() => {
-            const { paginatedPlayers, filteredPlayersLength } = listPlayers({ players: players, query: query, currentPage, playersPerPage })
-            setSearchedPlayers(paginatedPlayers)
-            setPlayersCount(filteredPlayersLength)
-        })()
-    }, [query, currentPage]);
+    const offset = (page - 1) * limit;
+    const queryKey = useMemo(() => ["players", { q: qDebounced, limit, offset }], [qDebounced, limit, offset]);
 
-    function onQueryChange(newQuery: string) {
-        setQuery(newQuery)
-        setCurrentPage(1)
-    }
+    const { data } = useQuery({
+        queryKey,
+        queryFn: async () => {
+            const params = new URLSearchParams();
+            if (qDebounced) params.set("q", qDebounced);
+            params.set("limit", String(limit));
+            params.set("offset", String(offset));
+            const res = await fetch(`/api/players?${params.toString()}`, { cache: "no-store" });
+            if (!res.ok) throw new Error(`HTTP ${res.status}: ${res.statusText}`);
+            return (await res.json()) as InitialData;
+        },
+        initialData:
+            initialParams.q === qDebounced && initialParams.page === page && initialParams.limit === limit
+                ? initialItems
+                : undefined,
+        placeholderData: keepPreviousData,
+        staleTime: 12000,
+    });
+
+    const players = data?.items ?? []
+    const playersCount = data?.total ?? 0
 
     return (
         <div className="flex flex-col">
             <PlayersHeader playersCount={playersCount} />
             <PlayersToolbar
-                value={query}
-                onQueryChange={onQueryChange}
+                value={q}
+                onQueryChange={setQ}
             />
-            <PlayersTable players={searchedPlayers} />
+            <PlayersTable players={players} />
             <Pagination
+                currentPage={page}
                 playersCount={playersCount}
-                playersPerPage={playersPerPage}
-                currentPage={currentPage}
-                setCurrentPage={setCurrentPage} />
-            <RemovePlayerModal isOpen={false} playerName={playerName} />
+                playersPerPage={limit}
+                onPageChange={setPage} />
             <PlayerFormModal />
             <PlayerDetails />
-            <DeleteConfirmationDialog />
         </div>
     )
 }
