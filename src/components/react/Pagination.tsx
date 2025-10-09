@@ -28,7 +28,7 @@ export default function Pagination({ currentPage, playersCount, playersPerPage, 
                     <button
                         key={index}
                         type="button"
-                        onClick={() => onPageChange(currentPage)}
+                        onClick={() => onPageChange(pageNumber)}
                         className={`size-10 m-1.5 cursor-pointer 
                         ${pageNumber === currentPage && "bg-(--primary-color) text-white rounded-xl"} 
                         ${pageNumber !== currentPage && "hover:bg-(--secondary-color) rounded-xl"}`}>

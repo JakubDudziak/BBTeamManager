@@ -22,7 +22,7 @@ type SeedData = {
     }>
 }
 
-const seedPath = path.resolve(process.cwd(),"src", "data", "players.json")
+const seedPath = path.resolve(process.cwd(), "src", "data", "players.json")
 console.log(seedPath)
 const raw = fs.readFileSync(seedPath, "utf-8")
 const data: SeedData = JSON.parse(raw)
@@ -37,7 +37,6 @@ db.transaction(tx => {
             )
             .get?.();
 
-        // prosty warunek: jeśli brak rekordu z tym samym zestawem — insert
         if (!existing) {
             tx.insert(players).values({
                 id: p.id,

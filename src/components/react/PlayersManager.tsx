@@ -1,12 +1,11 @@
 import { useEffect, useState, useMemo } from "react";
 import PlayersToolbar from "./PlayersToolbar";
 import PlayersTable from "./PlayersTable";
-import PlayerFormModal from "./PlayerFormModal";
-import PlayerDetails from "./PlayerDetails";
 import { type Player } from "../../types/player";
 import PlayersHeader from "./PlayersHeader.tsx";
 import Pagination from "./Pagination.tsx";
 import { useQuery, keepPreviousData } from "@tanstack/react-query";
+import RemovePlayerModal from "./Modal/RemovePlayerModal.tsx";
 
 type Props = {
     initialParams: {
@@ -26,6 +25,8 @@ export default function PlayersManager({ initialParams, initialItems }: Props) {
     const [page, setPage] = useState(initialParams.page)
     const [limit, setLimit] = useState(initialParams.limit)
     const [qDebounced, setQDebounced] = useState(q);
+    const [isModalOpen, setIsModalOpen] = useState(false)
+    const [playerToRemoveId, setPlayerToRemoveId] = useState(null)
 
     useEffect(() => {
         const t = setTimeout(() => {
@@ -74,8 +75,7 @@ export default function PlayersManager({ initialParams, initialItems }: Props) {
                 playersCount={playersCount}
                 playersPerPage={limit}
                 onPageChange={setPage} />
-            <PlayerFormModal />
-            <PlayerDetails />
+            <RemovePlayerModal isOpen={isModalOpen} playerName="" />
         </div>
     )
 }
