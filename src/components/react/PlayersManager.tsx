@@ -25,8 +25,6 @@ export default function PlayersManager({ initialParams, initialItems }: Props) {
     const [page, setPage] = useState(initialParams.page)
     const [limit, setLimit] = useState(initialParams.limit)
     const [qDebounced, setQDebounced] = useState(q);
-    const [isModalOpen, setIsModalOpen] = useState(false)
-    const [playerToRemoveId, setPlayerToRemoveId] = useState(null)
 
     useEffect(() => {
         const t = setTimeout(() => {
@@ -75,7 +73,7 @@ export default function PlayersManager({ initialParams, initialItems }: Props) {
                 playersCount={playersCount}
                 playersPerPage={limit}
                 onPageChange={setPage} />
-            <RemovePlayerModal isOpen={isModalOpen} playerName="" />
+            <RemovePlayerModal isOpen={false} playerName="" />
         </div>
     )
 }
