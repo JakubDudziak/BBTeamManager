@@ -1,17 +1,13 @@
 import React from "react";
 import Modal from "./Modal";
 
-type Props = {
-    isOpen: boolean
-    playerName: string
-}
 
-export default function RemovePlayerModal({ isOpen, playerName }: Props) {
+export default function RemovePlayerModal({playerId}: {playerId: number}) {
     return (
-        <Modal isOpen={isOpen} content={(
+        <Modal isOpen={true} content={(
             <>
                 <h2>Remove Player</h2>
-                <p>Are you sure that you want do remove: {playerName} from the player list?</p>
+                <p>Are you sure that you want do remove: {} from the player list?</p>
             </>
         )} />
     )

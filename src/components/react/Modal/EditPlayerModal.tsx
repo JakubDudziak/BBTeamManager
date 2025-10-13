@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function DeleteConfirmationDialog() {
+export default function EditPlayerModal() {
     return (
         <div>
         </div>

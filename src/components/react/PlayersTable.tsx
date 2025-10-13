@@ -1,7 +1,8 @@
 import React from "react";
 import type { Player } from "../../types/player";
+import {Modals} from "./Modal/PlayerModalManager.tsx";
 
-export default function PlayersTable({ players }: { players: Player[] }) {
+export default function PlayersTable({ players, buttonFn }: { players: Player[], buttonFn: (modalType: Modals, playerId: number) => void}) {
     return (
         <div className={"flex flex-1 flex-col"}>
             <table className={"order-1 m-6 border-collapse border border-(--middle-gray) bg-white"}>
@@ -24,9 +25,9 @@ export default function PlayersTable({ players }: { players: Player[] }) {
                                     <td className={"p-6 align-middle text-left select-none"}>{player.heightCm} cm</td>
                                     <td className={"p-6 align-middle text-left select-none"}>{player.weightKg} kg</td>
                                     <td className={"p-6 align-middle text-left select-none"}>
-                                        <button className={"bg-[url(public/icons/eye-icon.png)] size-[50px] border-none bg-white bg-size-[70%] bg-no-repeat bg-center group-even:bg-(--light-gray)"} type={"button"}></button>
-                                        <button className={"bg-[url(public/icons/edit-icon.png)] size-[50px] border-none bg-white bg-size-[70%] bg-no-repeat bg-center group-even:bg-(--light-gray)"} type={"button"}></button>
-                                        <button className={"bg-[url(public/icons/trash-icon.png)] size-[50px] border-none bg-white bg-size-[70%] bg-no-repeat bg-center group-even:bg-(--light-gray)"} type={"button"}></button>
+                                        <button className={"bg-[url(public/icons/eye-icon.png)] size-[50px] border-none bg-white bg-size-[70%] bg-no-repeat bg-center group-even:bg-(--light-gray)"} type={"button"} onClick={() => buttonFn(Modals.ViewPlayer, player.id)}></button>
+                                        <button className={"bg-[url(public/icons/edit-icon.png)] size-[50px] border-none bg-white bg-size-[70%] bg-no-repeat bg-center group-even:bg-(--light-gray)"} type={"button"} onClick={() => buttonFn(Modals.EditPlayer, player.id)}></button>
+                                        <button className={"bg-[url(public/icons/trash-icon.png)] size-[50px] border-none bg-white bg-size-[70%] bg-no-repeat bg-center group-even:bg-(--light-gray)"} type={"button"} onClick={() => buttonFn(Modals.RemovePlayer, player.id)}></button>
                                     </td>
                                 </tr>
                             )

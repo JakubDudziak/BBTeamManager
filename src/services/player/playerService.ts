@@ -8,12 +8,13 @@ const querySchema = z.object({
 });
 
 export function listPlayersService(input: unknown) {
-    const parsed = querySchema.safeParse(input);
+    const parsed = querySchema.safeParse(input)
     if (!parsed.success) {
-        const msg = parsed.error.errors.map(e => e.message).join("; ");
-        throw new Error(`Niepoprawne parametry: ${msg}`);
+        const msg = parsed.error.errors.map(e => e.message).join("; ")
+        throw new Error(`incorrect parameters: ${msg}`)
     }
 
-    const { q, limit, offset } = parsed.data;
-    return listPlayers({ q, limit, offset });
+    const { q, limit, offset } = parsed.data
+    return listPlayers({ q, limit, offset })
 }
+

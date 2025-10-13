@@ -20,12 +20,11 @@ export interface NewPlayer {
     heightCm: number;
     weightKg: number;
     age: number;
-    createdAt: string;
     photoURL?: string;
 }
 
-export interface PlayerFromValues {
-    id: number;
+export interface PlayerFormValues {
+    id?: number;
     firstName: string;
     lastName: string;
     number: string;
@@ -33,8 +32,6 @@ export interface PlayerFromValues {
     heightCm: string;
     weightKg: string;
     age: string;
-    createdAt: string;
-    updatedAt: string;
     photoURL?: string;
 }
 

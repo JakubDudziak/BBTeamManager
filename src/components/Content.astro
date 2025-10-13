@@ -9,7 +9,7 @@ const offset = (page - 1) * limit;
 
 const res = await fetch(
     new URL(
-        `/api/players?q=${encodeURIComponent(q)}&limit=${limit}&offset=${offset}`,
+        `/api/getPlayers?q=${encodeURIComponent(q)}&limit=${limit}&offset=${offset}`,
         Astro.url,
     ),
 );

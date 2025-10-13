@@ -20,3 +20,5 @@ export const GET: APIRoute = async ({ request }) => {
         return new Response(JSON.stringify({ error: err?.message ?? "Server error" }), { status: 400 });
     }
 };
+
+
