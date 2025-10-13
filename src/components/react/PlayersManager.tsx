@@ -1,11 +1,11 @@
-import {useEffect, useMemo, useState} from "react";
+import { useEffect, useMemo, useState } from "react";
 import PlayersToolbar from "./PlayersToolbar";
 import PlayersTable from "./PlayersTable";
-import {type Player} from "../../types/player";
+import { type Player } from "../../types/player";
 import PlayersHeader from "./PlayersHeader.tsx";
 import Pagination from "./Pagination.tsx";
-import {keepPreviousData, useQuery} from "@tanstack/react-query";
-import PlayerModalManager, {Modals} from "./Modal/PlayerModalManager.tsx";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
+import PlayerModalManager, { Modals } from "./Modal/PlayerModalManager.tsx";
 
 type Props = {
     initialParams: {
@@ -48,7 +48,7 @@ export default function PlayersManager({ initialParams, initialItems }: Props) {
             if (qDebounced) params.set("q", qDebounced)
             params.set("limit", String(limit))
             params.set("offset", String(offset))
-            const res = await fetch(`/api/players?${params.toString()}`, { cache: "no-store" })
+            const res = await fetch(`/api/getPlayers?${params.toString()}`, { cache: "no-store" })
             if (!res.ok) throw new Error(`HTTP ${res.status}: ${res.statusText}`)
             return (await res.json()) as InitialData
         },
@@ -63,15 +63,11 @@ export default function PlayersManager({ initialParams, initialItems }: Props) {
     const players = data?.items ?? []
     const playersCount = data?.total ?? 0
 
-    function handleActionsClick(modalType: Modals, playerId: number) {
-        setCurrentModal(modalType)
-        setChosenPlayer(playerId)
+    const open = (activeModal: Modals, playerId?: number) => {
+        setCurrentModal(activeModal)
+        setChosenPlayer(playerId || null)
     }
-
-    function handleAddPlayerClick() {
-        setCurrentModal(Modals.CreatePlayer)
-        setChosenPlayer(null)
-    }
+    const close = () => setCurrentModal(undefined)
 
     return (
         <div className="flex flex-col">
@@ -79,15 +75,15 @@ export default function PlayersManager({ initialParams, initialItems }: Props) {
             <PlayersToolbar
                 value={q}
                 onQueryChange={setQ}
-                buttonFn={handleAddPlayerClick}
+                buttonFnOnOpen={open}
             />
-            <PlayersTable players={players} buttonFn={handleActionsClick}/>
+            <PlayersTable players={players} buttonFnOnOpen={open} />
             <Pagination
                 currentPage={page}
                 playersCount={playersCount}
                 playersPerPage={limit}
                 onPageChange={setPage} />
-            {currentModal && <PlayerModalManager modalType={currentModal} playerId={chosenPlayer}/>}
+            {currentModal && <PlayerModalManager modalType={currentModal} playerId={chosenPlayer} closeButtonFn={close} />}
         </div>
     )
 }

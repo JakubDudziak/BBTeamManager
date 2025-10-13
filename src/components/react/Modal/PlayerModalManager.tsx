@@ -4,23 +4,23 @@ import EditPlayerModal from "./EditPlayerModal.tsx";
 import RemovePlayerModal from "./RemovePlayerModal.tsx";
 
 export enum Modals {
-    CreatePlayer = "CreatePlayer", ViewPlayer = "ViewPlayer",  EditPlayer = "EditPlayer", RemovePlayer = "RemovePlayer"
+    CreatePlayer = "CreatePlayer", ViewPlayer = "ViewPlayer", EditPlayer = "EditPlayer", RemovePlayer = "RemovePlayer"
 }
 
-export default function PlayerModalManager({modalType, playerId}: {modalType: Modals, playerId: number | null}) {
+export default function PlayerModalManager({ modalType, playerId, closeButtonFn }: { modalType: Modals, playerId: number | null, closeButtonFn: () => void }) {
 
-    if(playerId) {
+    if (playerId) {
         switch (modalType) {
             case Modals.ViewPlayer:
-                return <ViewPlayerModal/>
+                return <ViewPlayerModal />
             case Modals.EditPlayer:
-                return <EditPlayerModal/>
+                return <EditPlayerModal />
             case Modals.RemovePlayer:
-                return <RemovePlayerModal playerId={playerId}/>
+                return <RemovePlayerModal playerId={playerId} closeButtonFn={closeButtonFn} />
             default:
                 console.log("Modal type undefined.")
         }
     } else if (!playerId && modalType == Modals.CreatePlayer) {
-        return <CreatePlayerModal />
+        return <CreatePlayerModal isOpen={true} closeButtonFn={closeButtonFn} />
     }
 }
