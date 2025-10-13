@@ -8,7 +8,7 @@ export interface ListPlayersParams {
     offset: number;
 }
 
-export function listPlayers({ q, limit, offset }: ListPlayersParams) {
+export function getPlayers({ q, limit, offset }: ListPlayersParams) {
     const filters = [];
 
     if (q && q.trim()) {
