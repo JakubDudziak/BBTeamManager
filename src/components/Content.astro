@@ -8,8 +8,8 @@ const page = Number(url.searchParams.get("page") ?? 1);
 const limit = Number(url.searchParams.get("limit") ?? 5);
 const offset = (page - 1) * limit;
 
-const initialData2 = getPlayers({ q, limit, offset });
-console.log(initialData2);
+const initialData = getPlayers({ q, limit, offset });
+console.log(initialData);
 ---
 
 <div class="flex justify-center">
@@ -19,7 +19,7 @@ console.log(initialData2);
         <PlayersManager
             client:load
             initialParams={{ q, page, limit }}
-            initialItems={initialData2}
+            initialItems={initialData}
         />
     </div>
 </div>

@@ -1,6 +1,7 @@
 import { db } from "../db/client.ts"
 import { and, or, like, sql } from "drizzle-orm"
 import { players } from "../db/schema/playerSchema.ts";
+import type { Player } from "../types/player.ts";
 
 export interface ListPlayersParams {
     q?: string;
@@ -31,6 +32,8 @@ export function getPlayers({ q, limit, offset }: ListPlayersParams) {
         .limit(limit)
         .offset(offset)
         .all();
+
+    const playersData: Player[] = items
 
     const totalRow = db
         .select({ count: sql<number>`count(*)` })
