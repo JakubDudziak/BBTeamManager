@@ -6,10 +6,8 @@ const url = new URL(Astro.request.url);
 const q = url.searchParams.get("q") ?? "";
 const page = Number(url.searchParams.get("page") ?? 1);
 const limit = Number(url.searchParams.get("limit") ?? 5);
-const offset = (page - 1) * limit;
 
-const initialData = getPlayers({ q, limit, offset });
-console.log(initialData);
+const initialData = getPlayers({ q, page, limit });
 ---
 
 <div class="flex justify-center">
