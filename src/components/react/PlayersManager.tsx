@@ -5,7 +5,7 @@ import { type Player } from "../../types/player";
 import PlayersHeader from "./PlayersHeader.tsx";
 import Pagination from "./Pagination.tsx";
 import RemovePlayerModal from "./Modal/RemovePlayerModal.tsx";
-import {actions} from "astro:actions";
+import { actions } from "astro:actions"
 
 type Props = {
     initialParams: {
@@ -39,7 +39,7 @@ export default function PlayersManager({ initialParams, initialItems }: Props) {
     }, [q]);
 
     useEffect(() => {
-        let cancelled = false;           // prosty guard na wyścigi
+        let cancelled = false;
         const fetchData = async () => {
             try {
                 const response = await actions.players.filter({

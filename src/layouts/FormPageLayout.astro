@@ -1,0 +1,24 @@
+---
+const { title } = Astro.props;
+import "../styles/global.css";
+---
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <meta
+            name="description"
+            content="Webapp that allows to manage a basteball team."
+    />
+</head>
+<body>
+<div class="min-h-screen font-sans">
+    <main class="bg-(--secondary-color)">
+        <slot name="form" />
+    </main>
+</div>
+</body>
+</html>
