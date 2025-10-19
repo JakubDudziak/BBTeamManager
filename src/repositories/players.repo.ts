@@ -4,16 +4,18 @@ import { players } from "../db/schema/playerSchema.ts";
 import type { Player } from "../types/player.ts";
 
 export interface ListPlayersParams {
-    q?: string;
+    qDebounced?: string;
+    page: number;
     limit: number;
-    offset: number;
 }
 
-export function getPlayers({ q, limit, offset }: ListPlayersParams) {
+export function getPlayers({ qDebounced, page , limit}: ListPlayersParams) {
     const filters = [];
 
-    if (q && q.trim()) {
-        const search = `%${q.trim()}%`;
+    const offset = (page - 1) * limit
+
+    if (qDebounced && qDebounced.trim()) {
+        const search = `%${qDebounced.trim()}%`;
         filters.push(
             or(like(players.firstName, search),
                 like(players.lastName, search),
@@ -32,8 +34,6 @@ export function getPlayers({ q, limit, offset }: ListPlayersParams) {
         .limit(limit)
         .offset(offset)
         .all();
-
-    const playersData: Player[] = items
 
     const totalRow = db
         .select({ count: sql<number>`count(*)` })

@@ -9,7 +9,7 @@ export interface Player {
     age: number;
     createdAt: string;
     updatedAt: string;
-    photoURL?: string;
+    photoURL?: string | null;
 }
 
 export interface NewPlayer {
