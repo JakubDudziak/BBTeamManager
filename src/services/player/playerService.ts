@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { listPlayers } from "../../repositories/players.repo";
+import { getPlayers } from "../../repositories/players.repo";
 
 const querySchema = z.object({
     q: z.string().trim().max(30).optional(),
@@ -15,5 +15,5 @@ export function listPlayersService(input: unknown) {
     }
 
     const { q, limit, offset } = parsed.data;
-    return listPlayers({ q, limit, offset });
+    return getPlayers({ q, limit, offset });
 }

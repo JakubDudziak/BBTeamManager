@@ -1,5 +1,6 @@
 ---
-import PlayersWindow from "./react/PlayersWindow";
+import { getPlayers } from "../repositories/players.repo";
+import PlayersManager from "./react/PlayersManager";
 
 const url = new URL(Astro.request.url);
 const q = url.searchParams.get("q") ?? "";
@@ -7,20 +8,15 @@ const page = Number(url.searchParams.get("page") ?? 1);
 const limit = Number(url.searchParams.get("limit") ?? 5);
 const offset = (page - 1) * limit;
 
-const res = await fetch(
-    new URL(
-        `/api/players?q=${encodeURIComponent(q)}&limit=${limit}&offset=${offset}`,
-        Astro.url,
-    ),
-);
-const initialData = await res.json();
+const initialData = getPlayers({ q, limit, offset });
+console.log(initialData);
 ---
 
 <div class="flex justify-center">
     <div
         class="flex flex-col w-full m-6 bg-white border-solid border-2 border-(--middle-gray) rounded-2xl"
     >
-        <PlayersWindow
+        <PlayersManager
             client:load
             initialParams={{ q, page, limit }}
             initialItems={initialData}

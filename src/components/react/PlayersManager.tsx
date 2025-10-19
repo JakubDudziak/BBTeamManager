@@ -38,29 +38,6 @@ export default function PlayersManager({ initialParams, initialItems }: Props) {
     }, [q]);
 
     const offset = (page - 1) * limit;
-    const queryKey = useMemo(() => ["players", { q: qDebounced, limit, offset }], [qDebounced, limit, offset]);
-
-    const { data } = useQuery({
-        queryKey,
-        queryFn: async () => {
-            const params = new URLSearchParams();
-            if (qDebounced) params.set("q", qDebounced);
-            params.set("limit", String(limit));
-            params.set("offset", String(offset));
-            const res = await fetch(`/api/players?${params.toString()}`, { cache: "no-store" });
-            if (!res.ok) throw new Error(`HTTP ${res.status}: ${res.statusText}`);
-            return (await res.json()) as InitialData;
-        },
-        initialData:
-            initialParams.q === qDebounced && initialParams.page === page && initialParams.limit === limit
-                ? initialItems
-                : undefined,
-        placeholderData: keepPreviousData,
-        staleTime: 12000,
-    });
-
-    const players = data?.items ?? []
-    const playersCount = data?.total ?? 0
 
     return (
         <div className="flex flex-col">
