@@ -20,7 +20,6 @@ export interface NewPlayer {
     heightCm: number;
     weightKg: number;
     age: number;
-    createdAt: string;
     photoURL?: string;
 }
 

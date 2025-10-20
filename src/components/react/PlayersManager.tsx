@@ -4,7 +4,7 @@ import PlayersTable from "./PlayersTable";
 import { type Player } from "../../types/player";
 import PlayersHeader from "./PlayersHeader.tsx";
 import Pagination from "./Pagination.tsx";
-import RemovePlayerModal from "./Modal/RemovePlayerModal.tsx";
+import RemovePlayerModal from "./modal/RemovePlayerModal.tsx";
 import { actions } from "astro:actions"
 
 type Props = {

@@ -13,10 +13,12 @@ export default function PlayersToolbar({ value, onQueryChange }: Props) {
                 onChange={(e) => onQueryChange(e.target.value)}
                 placeholder="🔎 Search for players.."
                 className="h-fit m-6 mr-0 p-2 text-2xl border border-solid border-(--middle-gray) rounded-2xl" />
-            <button type="button"
-                className="mr-6 py-2 px-4 text-2xl text-white bg-(--primary-color) border-none rounded-xl">+ Add
-                player
-            </button>
+            <a href="/players/new">
+                <button type="button"
+                    className="mr-6 py-2 px-4 text-2xl text-white bg-(--primary-color) border-none rounded-xl">+ Add
+                    player
+                </button>
+            </a>
         </div>
     )
 }
