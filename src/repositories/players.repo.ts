@@ -1,7 +1,6 @@
 import { db } from "../db/client.ts"
 import { and, or, like, sql } from "drizzle-orm"
 import { players } from "../db/schema/playerSchema.ts";
-import type { Player } from "../types/player.ts";
 
 export interface ListPlayersParams {
     qDebounced?: string;
@@ -44,4 +43,8 @@ export function getPlayers({ qDebounced, page , limit}: ListPlayersParams) {
     const total = totalRow?.count ?? 0;
 
     return { items, total };
+}
+
+export function createPlayer() {
+
 }

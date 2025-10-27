@@ -1,14 +1,10 @@
 ---
 import FormPageLayout from "../../../layouts/FormPageLayout.astro"
-import Sidebar from "../../../components/Sidebar.astro";
 import CreatePlayerForm from "../../../components/react/form/CreatePlayerForm.tsx";
 ---
 
 <FormPageLayout title="Register new player">
-    <Fragment slot="Sidebar">
-        <Sidebar />
-    </Fragment>
     <Fragment slot="form">
-        <CreatePlayerForm />
+        <CreatePlayerForm  client:load/>
     </Fragment>
 </FormPageLayout>

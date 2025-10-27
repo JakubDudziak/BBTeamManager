@@ -15,7 +15,7 @@ export default function PlayersToolbar({ value, onQueryChange }: Props) {
                 className="h-fit m-6 mr-0 p-2 text-2xl border border-solid border-(--middle-gray) rounded-2xl" />
             <a href="/players/new">
                 <button type="button"
-                    className="mr-6 py-2 px-4 text-2xl text-white bg-(--primary-color) border-none rounded-xl">+ Add
+                    className="mr-6 py-2 px-4 text-2xl text-white bg-(--primary-color) border-none rounded-xl shadow-md">+ Add
                     player
                 </button>
             </a>

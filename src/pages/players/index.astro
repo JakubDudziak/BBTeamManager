@@ -1,9 +1,13 @@
 ---
 import MySiteLayout from "../../layouts/BaseLayout.astro";
 import Content from "../../components/Content.astro";
+import Sidebar from "../../components/Sidebar.astro";
 ---
 
 <MySiteLayout title="Player Management">
+    <Fragment slot="sidebar">
+        <Sidebar />
+    </Fragment>
 	<Fragment slot="content">
 		<Content />
 	</Fragment>
