@@ -1,5 +1,5 @@
 import { db } from "../db/client.ts"
-import { and, or, like, sql } from "drizzle-orm"
+import { and, or, like, sql, eq} from "drizzle-orm"
 import { players } from "../db/schema/playerSchema.ts";
 import type {NewPlayer} from "../types/player.ts";
 
@@ -46,6 +46,18 @@ export function getPlayers({ qDebounced, page , limit}: ListPlayersParams) {
     return { items, total };
 }
 
-export function createPlayer(newPlayer: NewPlayer) {
+// export function createPlayer(newPlayer: NewPlayer) {
 
+// }
+
+export function checkIfNumberIsTakenInDB(number: number) {
+
+    const existing = db
+        .select()
+        .from(players)
+        .where(eq(players.number, number))
+        .limit(1)
+        .get()
+
+    return {taken: !!existing}
 }

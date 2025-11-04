@@ -5,7 +5,7 @@ export const players = sqliteTable("players", {
     id: integer("id").primaryKey({ autoIncrement: true }),
     firstName: text("first_name").notNull(),
     lastName: text("last_name").notNull(),
-    number: integer("number").notNull(),
+    number: integer("number").notNull().unique(),
     position: text("position").notNull().$type<Position>(),
     heightCm: integer("height_cm").notNull(),
     weightKg: integer("weight_kg").notNull(),

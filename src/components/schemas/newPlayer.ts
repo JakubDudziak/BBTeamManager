@@ -1,5 +1,6 @@
 import {z} from "zod";
 import {Position} from "../../types/player.ts";
+import { checkIfNumberIsTakenInDB } from "../../repositories/players.repo.ts";
 
 export const newPlayerSchema = z.object({
     firstName: z
