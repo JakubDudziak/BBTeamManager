@@ -1,6 +1,7 @@
 import { db } from "../db/client.ts"
 import { and, or, like, sql } from "drizzle-orm"
 import { players } from "../db/schema/playerSchema.ts";
+import type {NewPlayer} from "../types/player.ts";
 
 export interface ListPlayersParams {
     qDebounced?: string;
@@ -45,6 +46,6 @@ export function getPlayers({ qDebounced, page , limit}: ListPlayersParams) {
     return { items, total };
 }
 
-export function createPlayer() {
+export function createPlayer(newPlayer: NewPlayer) {
 
 }
